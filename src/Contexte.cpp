@@ -48,8 +48,8 @@ uint64_t Contexte::randIndex(){
     unsigned long n1 = random();
     unsigned long n2 = random();
     uint64_t n = ( (uint64_t) n2 ) 
-           + ( ( (uint64_t) n1 ) << 32 );
-    return n;
+           + ( ( (uint64_t) n1 ) << 8 );
+    return n%_N;
 }
 Contexte::Contexte() {
      _N = 0;
@@ -62,8 +62,7 @@ Contexte::Contexte() {
         _N += var;
         _N_taille.push_back(var);
         i ==_mot_taille_min ? _paliers.push_back(pow(_nb_lettres, i)) : _paliers.push_back(_paliers[i-1]+pow(_nb_lettres, i));
-    }
-  
+    } 
     
 }
 

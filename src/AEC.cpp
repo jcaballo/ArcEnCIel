@@ -1,21 +1,22 @@
 /* 
- * File:   main.cpp
+ * File:   Crack.cpp
  * Author: jujulejaffa
  *
  * Created on 17 février 2016, 13:53
  */
-
+#include <stdio.h>
 #include <cstdlib>
 #include <iostream>
-#include <string>
+#include <cstring>
 #include "Contexte.h"
 #include "ArcEnCiel.h"
 using namespace std;
 
-bool cracker( unsigned char* y, ArcEnCiel aec, Contexte ctxt,
+
+bool cracker( unsigned char* y, ArcEnCiel &aec, Contexte &ctxt,
                 string & clair ) {
     int nb_fausses_alertes = 0;
-    for ( int t = aec.getT() - 1; t > 0; --t ) {
+    for ( uint t = aec.getT() - 1; t > 0; --t ) {
        // fabrication du bon indice
        uint64_t idx = ctxt.h2i( t, y );
        for ( int k = t + 1; k <= aec.getT() - 1; ++k ) {
@@ -44,13 +45,26 @@ int main(int argc, char** argv) {
     ArcEnCiel arc;
     Contexte ctx;
     string clair="";
-    /*arc.creer(ctx);
-    arc.save("table.txt");*/
-    arc.load("table.txt");
-    unsigned char* hache=new unsigned char[16];
-    string toto = "xznyx";
-    ctx.h(toto, hache);
-    cracker(hache, arc, ctx, clair);
+    if (argc < 4) {
+        cerr << "Usage : ./AEC <Load|Create> <Filename> <MD5Hach>";
+        exit(1);
+    }
+    
+    if(strcmp(argv[1],"Create") == 0){
+        arc.creer(ctx);
+        arc.save(argv[2]);
+
+    } else if(strcmp(argv[1],"Load") == 0){
+        arc.load(argv[2]);
+    }
+    else {
+        cerr << "Usage : ./AEC <Load|Create> <Filename> <MD5Hach>";
+        exit(1);
+
+    }
+    
+    
+    cracker((unsigned char*)argv[3], arc, ctx, clair);
     cout << clair;
     
     

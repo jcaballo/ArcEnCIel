@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
+CND_PLATFORM=GNU-Linux
 CND_DLIB_EXT=so
 CND_CONF=Debug
 CND_DISTDIR=dist
@@ -35,10 +35,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/AEC.o \
 	${OBJECTDIR}/src/ArcEnCiel.o \
 	${OBJECTDIR}/src/Contexte.o \
-	${OBJECTDIR}/src/Utils.o \
-	${OBJECTDIR}/src/main.o
+	${OBJECTDIR}/src/Utils.o
 
 
 # C Compiler Flags
@@ -65,6 +65,11 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/arcenciel: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/arcenciel ${OBJECTFILES} ${LDLIBSOPTIONS}
 
+${OBJECTDIR}/src/AEC.o: src/AEC.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/local/ssl/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/AEC.o src/AEC.cpp
+
 ${OBJECTDIR}/src/ArcEnCiel.o: src/ArcEnCiel.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
@@ -79,11 +84,6 @@ ${OBJECTDIR}/src/Utils.o: src/Utils.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/local/ssl/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Utils.o src/Utils.cpp
-
-${OBJECTDIR}/src/main.o: src/main.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/local/ssl/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
 
 # Subprojects
 .build-subprojects:

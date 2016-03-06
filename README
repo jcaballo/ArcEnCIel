@@ -1,0 +1,12 @@
+Utilisation :
+
+./AEC <Load|Create> <FileName> <MD5Hach>
+
+Load : Permet de charger la table "FileName"
+Create : Permet de créer une table sous le nom "FileName"
+
+Les variables M et T sont à changer dans le constructeur de la classe ArcEnCiel. La taille des mots (max et min) ainsi que l'alphabet sont dans le constructeur de la classe Contexte. A noter que N est calculé automatiquement en fonction du nombres de lettres dans l'alphabet.
+
+Toutes les fonctions de la classe Contexte fonctionnent comme voulue. Celles de la classe ArcEnCiel sont par contre très lentes. Ceci peut être expliqué par le fait que lorsque nous chargeons la table, nous la stockons en entier dans un tableau dans la pile. Du coup la mémoire se retrouve assez vite saturée. Le PC sur lequel nous faisions nos test étant de plus assez mal ventilé, il crashait assez rapidement.
+
+
